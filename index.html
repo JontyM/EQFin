@@ -1,0 +1,234 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>EQ.FIN Mobile App</title>
+	
+	<script type="text/javascript" src="cordova-1.7.0.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDCv3qmndnzz_iali6HWyWHB2gxXMnzueg&sensor=false"></script>
+	<script type="text/javascript" src="json2.js"></script>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="EQFin.js"></script>
+	<link rel="stylesheet" href="jquery.mobile-1.4.5.min.css" />
+	
+	<style>
+	#home_content {
+    	text-align: center;
+    	font-size: 15px;
+	}
+	</style>
+	
+	<style>
+	#logo_header {
+    	text-align: center;
+    	font-size: 15px;
+	}
+	</style>
+
+	<script type="text/javascript" charset="UTF-8">
+	var pictureSource;		//picture source
+	var destinationType;	//sets format of returned value
+	
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady(){
+	pictureSource=navigator.camera.PictureSourceType;
+	destinationType=navigator.camera.DestinationType;
+}
+	
+		function docScannerClick(){
+			window.location.href = "#docScanner";
+		}
+		
+		function onPhotoDataSuccess(imageData){
+			var smallImage = document.getElementById('smallImage');
+			smallImage.style.display = 'block';
+			smallImage.src = "data:image/jpeg;base64," + imageData;
+		}
+	
+		function capturePhotoWithData(){
+			alert("working");
+			navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50, destinationType: destinationType.DATA_URL});
+			
+		}
+	
+	 	function onFail(message) {
+		alert('Failed because: ' + message);
+		} 
+	</script>
+</head>
+<body>
+		
+<!-- Start of Login Page -->
+<div data-role="page" id="login">
+	
+	<div data-role="content" id="logo_header">
+		<img src="logo2.png" align="center"/>
+	</div>
+	<div data-role="content" id="home_content">
+		
+		<form id="LoginForm">
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="LoginForm">Username:</label>
+				<input type="text" name="username" id="username" value="" placeholder="Username"/>
+			</div>
+			
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="password">Password:</label>
+				<input type="password" name="password" id="password" value="" placeholder="Password"/>
+				</div>
+				
+				<!--<input  type="submit" value="Login" id="loginButton"/>-->
+				<a class="ui-btn" href="#home" data-transition="none">Login</a>
+				<input type="submit" value="Forgot my password" id="resetPass"></input>
+		</form>
+	</div>
+	
+</div>
+
+<!-- Start of Home page -->
+<div data-role="page" id="home">
+
+	<div data-role="header" id="Nav">
+	
+		<!--<h1>Home</h1>-->
+	
+		<div data-role="navbar">
+			<ul>
+				<!--Four empty list items to achieve desired spacing, jquery mobile css problem-->
+				<!--<a href="#login" data-transition="none">Logout</a>-->
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<a href="#options" data-rel="popup" data-transition="slideup"><img src="menubar.jpg" alt="Menu Bar" height="25" width="25" border="5px"/></a>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="content" id="home_content">
+		<img src="logo2.png" align="center"/>
+		<ul>
+			<button id="userProfile" data-icon="user">User Profile</button>
+			<button id="streamline" data-icon="star">Streamline</button>
+			<button id="chat" data-icon="comment">Chat</button>
+			<button id="products" data-icon="shop">Products</button>
+			<button onclick="docScannerClick();" data-icon="camera">Document Scanner</button>
+			<button id="news" data-icon="info">News</button>
+			<button id="calculator" data-icon="plus">Savings Calculator</button>
+			<button id="branchInfo" data-icon="phone">Branch Info</button>		
+		</ul>
+	
+	</div>
+
+
+</div>
+<!-- End of Home page -->
+
+
+<!-- Start of Trackwork Out page -->
+<div data-role="page" id="startTracking">
+
+	<div data-role="header">
+		<h1>Track Workout</h1>
+		
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+				<li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+				<li><a href="#history" data-transition="none" data-icon="star">History</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="content">	
+		<p id="startTracking_status"></p>
+			<div data-role="fieldcontain" class="ui-hide-label">
+				<label for="track_id">Track ID/Name:</label>
+				<input type="text" name="track_id" id="track_id" placeholder="Workout ID/Name"/>
+			</div>
+<div>
+	<button data-role="button" id="startTracking_start">Start Tracking</button>
+	<button data-role="button" id="startTracking_stop">Stop Tracking</button>	
+</div>
+<div data-role="content">
+	<p id="startTracking_info"></p>
+</div>
+<div align="center">
+	<p><strong>Stroke Counter:</strong><br>The stroke counter allows you to calculate the amount of rowing strokes per minute.</p>
+	<img src="stroke.jpg" align="center" alt="rowing stroke image" width="100%" />
+	<p><strong>Instructions:</strong><br>You will need to click the "Stroke!" button on each successive stroke.<br>
+		A stroke is from "finish" to "finish" or from "catch" to "catch" as shown in the image above.
+	</p>
+	<button data-role="button" id="strokeCalculate">Stroke!</button>
+	<p id="strokeOutput"></p>
+</div>
+	  
+				
+	</div>
+
+
+</div><!-- /page -->
+
+<!-- Start of the History page -->
+<div data-role="page" id="history">
+
+    <div data-role="header">
+        <h1>History</h1>
+        
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+                <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+                <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="content">	
+        <p id="tracks_recorded"></p>
+        
+        <ul data-role="listview" id="history_tracklist">
+
+        </ul>
+    </div>
+
+
+</div><!-- /page -->
+
+<!-- Track Info page -->
+<div data-role="page" id="track_info">
+
+	<div data-role="header">
+		<h1>Viewing Single Workout</h1>
+		
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
+				<li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
+				<li><a href="#history" data-transition="none" data-icon="star">History</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div data-role="content">	
+		<p id="track_info_info"></p>		
+		<div id="map_canvas" style="position:absolute;left:0;width:100%;height:500px;"></div>
+	</div>
+
+
+</div><!-- /page -->
+
+<!-- Document Scanner page -->
+<div data-role="page" id="docScanner">
+	
+	<div data-role="content">
+		<button onclick="capturePhotoWithData();" data-role="button">Capture</button><br>
+		<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+		<img style="display:none;" id="largeImage" src="" /> 
+	</div>
+</div>
+
+
+</body>
+</html>
