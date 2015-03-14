@@ -47,8 +47,7 @@ function onDeviceReady(){
 		}
 	
 		function capturePhotoWithData(){
-			alert("working");
-			navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50, destinationType: destinationType.DATA_URL});
+			navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50, destinationType: destinationType.DATA_URL, sourceType: 1, encodingType: 0});
 			
 		}
 	
@@ -108,16 +107,25 @@ function onDeviceReady(){
 
 	<div data-role="content" id="home_content">
 		<img src="logo2.png" align="center"/>
-		<ul>
-			<button id="userProfile" data-icon="user">User Profile</button>
-			<button id="streamline" data-icon="star">Streamline</button>
-			<button id="chat" data-icon="comment">Chat</button>
-			<button id="products" data-icon="shop">Products</button>
-			<button onclick="docScannerClick();" data-icon="camera">Document Scanner</button>
-			<button id="news" data-icon="info">News</button>
-			<button id="calculator" data-icon="plus">Savings Calculator</button>
-			<button id="branchInfo" data-icon="phone">Branch Info</button>		
-		</ul>
+
+		<table style="width: 100%" align="center">
+			<tr>
+				<td><button id="userProfile" data-icon="user">User Profile</button></td>
+				<td><button id="streamline" data-icon="star">Streamline</button></td>
+			</tr>
+			<tr>
+				<td><button id="chat" data-icon="comment">Chat</button></td>
+				<td><button id="products" data-icon="shop">Products</button></td>
+			</tr>
+			<tr>
+				<td><button onclick="docScannerClick();" data-icon="camera">Document Scanner</button></td>
+				<td><button id="news" data-icon="info">News</button></td>
+			</tr>
+			<tr>
+				<td><button id="calculator" data-icon="plus">Savings Calculator</button></td>
+				<td><button id="branchInfo" data-icon="phone">Branch Info</button></td>
+			</tr>
+		</table>
 	
 	</div>
 
@@ -222,7 +230,10 @@ function onDeviceReady(){
 <!-- Document Scanner page -->
 <div data-role="page" id="docScanner">
 	
-	<div data-role="content">
+	<div data-role="content" title="Document Scanner">
+		<h2>Document Scanner</h2><br/>
+		<p>Choose to either capture a document through the device camera or select a document from </p>
+		
 		<button onclick="capturePhotoWithData();" data-role="button">Capture</button><br>
 		<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
 		<img style="display:none;" id="largeImage" src="" /> 
