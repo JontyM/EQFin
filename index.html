@@ -6,10 +6,11 @@
 	<script type="text/javascript" src="cordova-1.7.0.js"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDCv3qmndnzz_iali6HWyWHB2gxXMnzueg&sensor=false"></script>
 	<script type="text/javascript" src="json2.js"></script>
-	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="jquery.mobile-1.4.5.min.js"></script>
-    <script type="text/javascript" src="EQFin.js"></script>
-	<link rel="stylesheet" href="jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" type="text/css" href="jquery.mobile-1.4.5.min.css" />
+    <!--<script type="text/javascript" src="EQFin.js"></script>-->
+	
 	
 	<style>
 	#home_content {
@@ -40,6 +41,14 @@ function onDeviceReady(){
 			window.location.href = "#docScanner";
 		}
 		
+		function userProfileClick(){
+			window.location.href = "#User Profile";
+		}
+		
+		function productsClick(){
+			window.location.href = "#products";
+		}
+		
 		function onPhotoDataSuccess(imageData){
 			var smallImage = document.getElementById('smallImage');
 			smallImage.style.display = 'block';
@@ -64,7 +73,7 @@ function onDeviceReady(){
 	<div data-role="content" id="logo_header">
 		<img src="logo2.png" align="center"/>
 	</div>
-	<div data-role="content" id="home_content">
+	<div data-role="content" id="login_content">
 		
 		<form id="LoginForm">
 			<div data-role="fieldcontain" class="ui-hide-label">
@@ -87,45 +96,37 @@ function onDeviceReady(){
 
 <!-- Start of Home page -->
 <div data-role="page" id="home">
-
-	<div data-role="header" id="Nav">
 	
-		<!--<h1>Home</h1>-->
-	
-		<div data-role="navbar">
-			<ul>
-				<!--Four empty list items to achieve desired spacing, jquery mobile css problem-->
-				<!--<a href="#login" data-transition="none">Logout</a>-->
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<a href="#options" data-rel="popup" data-transition="slideup"><img src="menubar.jpg" alt="Menu Bar" height="25" width="25" border="5px"/></a>
-			</ul>
-		</div>
+<div data-role="header" style="overflow:hidden;">
+	<h2>EQ.FIN</h2>
+	<div data-role="collapsibleset" data-theme="b" data-content-theme="b" data-collapsed-icon="bars" data-expanded-icon="minus" class="ui-btn-right">
+	<div data-role="collapsible">
+		<h2>Settings</h2>
+		<ul data-role="listview" data-inset="false">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+		</ul>
 	</div>
+	</div>
+<!--<a href="#options" data-icon="bars" class="ui-btn ui-btn-right">Settings</a>-->
+<a href="#login" class="ui-btn ui-btn-left">Logout</a>
+</div>
 
 	<div data-role="content" id="home_content">
-		<img src="logo2.png" align="center"/>
-
-		<table style="width: 100%" align="center">
-			<tr>
-				<td><button id="userProfile" data-icon="user">User Profile</button></td>
-				<td><button id="streamline" data-icon="star">Streamline</button></td>
-			</tr>
-			<tr>
-				<td><button id="chat" data-icon="comment">Chat</button></td>
-				<td><button id="products" data-icon="shop">Products</button></td>
-			</tr>
-			<tr>
-				<td><button onclick="docScannerClick();" data-icon="camera">Document Scanner</button></td>
-				<td><button id="news" data-icon="info">News</button></td>
-			</tr>
-			<tr>
-				<td><button id="calculator" data-icon="plus">Savings Calculator</button></td>
-				<td><button id="branchInfo" data-icon="phone">Branch Info</button></td>
-			</tr>
-		</table>
+		<img src="logo2.png" align="center"/><br/>
+		
+		<div class="ui-grid-a ui-responsive">
+			<div class="ui-block-a"><button onclick="userProfileClick();" id="userProfile" class="ui-btn ui-icon-user ui-btn-icon-top ui-alt-icon">User Profile</button></div>
+			<div class="ui-block-b"><button id="streamline" class="ui-btn ui-icon-star ui-btn-icon-top ui-alt-icon ui-btn-b">Streamline</button></div>
+			<div class="ui-block-a"><button id="chat" class="ui-btn ui-icon-comment ui-btn-icon-top">Chat</button></div>
+			<div class="ui-block-b"><button onclick="productsClick();" id="products" class="ui-btn ui-icon-shop ui-btn-icon-top ui-btn-b">Products</button></div>
+			<div class="ui-block-a"><button onclick="docScannerClick();" class="ui-btn ui-icon-camera ui-btn-icon-top ui-alt-icon">Document Scanner</button></div>
+			<div class="ui-block-b"><button id="news" class="ui-btn ui-icon-info ui-btn-icon-top ui-alt-icon">News</button></div>
+			<div class="ui-block-a"><button id="calculator" class="ui-btn ui-icon-plus ui-btn-icon-top ui-alt-icon">Savings Calculator</button></div>
+			<div class="ui-block-b"><button id="branchInfo" class="ui-btn ui-icon-phone ui-btn-icon-top ui-alt-icon">Branch Info</button></div>
+		</div>		
+		
 	
 	</div>
 
@@ -134,71 +135,70 @@ function onDeviceReady(){
 <!-- End of Home page -->
 
 
-<!-- Start of Trackwork Out page -->
-<div data-role="page" id="startTracking">
+<!-- Start of User Profile page -->
+<div data-role="page" id="User Profile">
 
-	<div data-role="header">
-		<h1>Track Workout</h1>
-		
-		<div data-role="navbar">
-			<ul>
-				<li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
-				<li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
-				<li><a href="#history" data-transition="none" data-icon="star">History</a></li>
-			</ul>
-		</div>
+	<div data-role="header" style="overflow:hidden">
+		<h2>EQ.FIN - User Profile</h2>
+	<div data-role="collapsibleset" data-theme="b" data-content-theme="b" data-collapsed-icon="bars" data-expanded-icon="minus" class="ui-btn-right">
+	<div data-role="collapsible">
+		<h2>Settings</h2>
+		<ul data-role="listview" data-inset="false">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+		</ul>
 	</div>
-
-	<div data-role="content">	
-		<p id="startTracking_status"></p>
+	</div>
+<a href="#home" class="ui-btn ui-btn-left">Back</a>
+</div>
+	
+<div class="ui-grid-a ui-responsive">	
+	<div class="ui-block-a"><img src="profile.jpg"/></div>
+	</div>
 			<div data-role="fieldcontain" class="ui-hide-label">
-				<label for="track_id">Track ID/Name:</label>
-				<input type="text" name="track_id" id="track_id" placeholder="Workout ID/Name"/>
-			</div>
-<div>
-	<button data-role="button" id="startTracking_start">Start Tracking</button>
-	<button data-role="button" id="startTracking_stop">Stop Tracking</button>	
-</div>
-<div data-role="content">
-	<p id="startTracking_info"></p>
-</div>
-<div align="center">
-	<p><strong>Stroke Counter:</strong><br>The stroke counter allows you to calculate the amount of rowing strokes per minute.</p>
-	<img src="stroke.jpg" align="center" alt="rowing stroke image" width="100%" />
-	<p><strong>Instructions:</strong><br>You will need to click the "Stroke!" button on each successive stroke.<br>
-		A stroke is from "finish" to "finish" or from "catch" to "catch" as shown in the image above.
-	</p>
-	<button data-role="button" id="strokeCalculate">Stroke!</button>
-	<p id="strokeOutput"></p>
-</div>
-	  
 				
+				<input id="userDet1" type="text" name="userDet1" placeholder="Detail 1"/>
+				<input id="userDet2" type="text" name="userDet2" placeholder="Detail 2"/>
+				<input id="userDet3" type="text" name="userDet3" placeholder="Detail 3"/>
+				<input id="userDet4" type="text" name="userDet4" placeholder="Detail 4"/>
+				<input id="userDet5" type="text" name="userDet5" placeholder="Detail 5"/>
+				<input id="userDet6" type="text" name="userDet6" placeholder="Detail 6"/>
+				<input id="userDet7" type="text" name="userDet7" placeholder="Detail 7"/><br />
+				<button id="updateProfile" class="ui-btn ui-icon-check ui-btn-icon-left ui-alt-icon ui-btn-b ui-btn-inline">Update</button>
+			</div>		
 	</div>
+<!-- /page -->
 
+<!-- Start of the Products page -->
+<div data-role="page" id="products">
 
-</div><!-- /page -->
-
-<!-- Start of the History page -->
-<div data-role="page" id="history">
-
-    <div data-role="header">
-        <h1>History</h1>
-        
-        <div data-role="navbar">
-            <ul>
-                <li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
-                <li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
-                <li><a href="#history" data-transition="none" data-icon="star">History</a></li>
-            </ul>
-        </div>
-    </div>
+    <div data-role="header" style="overflow:hidden">
+        <h2>EQ.FIN - User Profile</h2>
+	<div data-role="collapsibleset" data-theme="b" data-content-theme="b" data-collapsed-icon="bars" data-expanded-icon="minus" class="ui-btn-right">
+	<div data-role="collapsible">
+		<h2>Settings</h2>
+		<ul data-role="listview" data-inset="false">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+		</ul>
+	</div>
+	</div>
+<a href="#home" class="ui-btn ui-btn-left">Back</a>
+</div>
 
     <div data-role="content">	
-        <p id="tracks_recorded"></p>
+        <select name="prodChoice" id="prodChoice">
+        	<option value="#">Product Type</option>
+        	<option value="#">Product 1</option>
+        	<option value="#">Product 2</option>
+        	<option value="#">Product 3</option>
+        </select>
         
-        <ul data-role="listview" id="history_tracklist">
-
-        </ul>
+     <div id="prodDesc" class="ui-body ui-body-a ui-corner-all">
+          <p></p>
+      </div>
     </div>
 
 
