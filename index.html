@@ -4,7 +4,7 @@
 	<title>EQ.FIN Mobile App</title>
 	
 	<script type="text/javascript" src="cordova-1.7.0.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDCv3qmndnzz_iali6HWyWHB2gxXMnzueg&sensor=false"></script>
+	<!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDCv3qmndnzz_iali6HWyWHB2gxXMnzueg&sensor=false"></script>-->
 	<script type="text/javascript" src="json2.js"></script>
 	<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="jquery.mobile-1.4.5.min.js"></script>
@@ -29,16 +29,48 @@
 	<script type="text/javascript" charset="UTF-8">
 	var pictureSource;		//picture source
 	var destinationType;	//sets format of returned value
-	
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady(){
 	pictureSource=navigator.camera.PictureSourceType;
 	destinationType=navigator.camera.DestinationType;
 }
+		
+		function onPhotoDataSuccess(imageData){
+			var smallImage = document.getElementById('smallImage');
+			smallImage.style.display = 'block';
+			smallImage.src = "data:image/jpeg;base64," + imageData;
+		}
+		
+		function onPhotoURISuccess(imageURI)
+		{
+			var largeImage = document.getElementById('largeImage');
+			largeImage.style.display = 'block';
+			largeImage.src = imageURI;
+		}
+		
+		function capturePhotoEdit(){
+			navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 20, allowEdit: true, destinationType: destinationType.DATA_URL});
+			
+		}
 	
-		function docScannerClick(){
-			window.location.href = "#docScanner";
+		function capturePhotoWithData(){
+			navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50, destinationType: destinationType.DATA_URL, sourceType: 1, encodingType: 0});
+			
+		}
+		
+		function getPhoto(source){
+			navigator.camera.getPicture(onPhotoURISuccess, onFail, {quality: 50, destinationType: destinationType.FILE_URI, sourceType: source});
+		}
+	
+	 	function onFail(message) {
+		alert('Failed because: ' + message);
+		} 
+	</script>
+	
+	<script type="text/javascript" charset="UTF-8">
+		function scannerClick(){
+			window.location.href = "#scanner";
 		}
 		
 		function userProfileClick(){
@@ -49,25 +81,22 @@ function onDeviceReady(){
 			window.location.href = "#products";
 		}
 		
-		function onPhotoDataSuccess(imageData){
-			var smallImage = document.getElementById('smallImage');
-			smallImage.style.display = 'block';
-			smallImage.src = "data:image/jpeg;base64," + imageData;
+		function harry(){
+			window.location.href = "#calc";
 		}
-	
-		function capturePhotoWithData(){
-			navigator.camera.getPicture(onPhotoDataSuccess, onFail, {quality: 50, destinationType: destinationType.DATA_URL, sourceType: 1, encodingType: 0});
-			
+		
+		function newsClick(){
+			window.location.href = "#news";
 		}
-	
-	 	function onFail(message) {
-		alert('Failed because: ' + message);
-		} 
+		
+		function contactClick(){
+			window.location.href = "#contact";
+		}
 	</script>
 </head>
 <body>
-		
-<!-- Start of Login Page -->
+
+<!-- Start of Login Page 
 <div data-role="page" id="login">
 	
 	<div data-role="content" id="logo_header">
@@ -86,13 +115,14 @@ function onDeviceReady(){
 				<input type="password" name="password" id="password" value="" placeholder="Password"/>
 				</div>
 				
-				<!--<input  type="submit" value="Login" id="loginButton"/>-->
+				<input  type="submit" value="Login" id="loginButton"/>
 				<a class="ui-btn" href="#home" data-transition="none">Login</a>
 				<input type="submit" value="Forgot my password" id="resetPass"></input>
 		</form>
 	</div>
 	
 </div>
+-->
 
 <!-- Start of Home page -->
 <div data-role="page" id="home">
@@ -118,13 +148,13 @@ function onDeviceReady(){
 		
 		<div class="ui-grid-a ui-responsive">
 			<div class="ui-block-a"><button onclick="userProfileClick();" id="userProfile" class="ui-btn ui-icon-user ui-btn-icon-top ui-alt-icon">User Profile</button></div>
-			<div class="ui-block-b"><button id="streamline" class="ui-btn ui-icon-star ui-btn-icon-top ui-alt-icon ui-btn-b">Streamline</button></div>
-			<div class="ui-block-a"><button id="chat" class="ui-btn ui-icon-comment ui-btn-icon-top">Chat</button></div>
-			<div class="ui-block-b"><button onclick="productsClick();" id="products" class="ui-btn ui-icon-shop ui-btn-icon-top ui-btn-b">Products</button></div>
-			<div class="ui-block-a"><button onclick="docScannerClick();" class="ui-btn ui-icon-camera ui-btn-icon-top ui-alt-icon">Document Scanner</button></div>
-			<div class="ui-block-b"><button id="news" class="ui-btn ui-icon-info ui-btn-icon-top ui-alt-icon">News</button></div>
-			<div class="ui-block-a"><button id="calculator" class="ui-btn ui-icon-plus ui-btn-icon-top ui-alt-icon">Savings Calculator</button></div>
-			<div class="ui-block-b"><button id="branchInfo" class="ui-btn ui-icon-phone ui-btn-icon-top ui-alt-icon">Branch Info</button></div>
+			<div class="ui-block-b"><button id="streamline" class="ui-btn ui-icon-star ui-btn-icon-top ui-alt-icon">Streamline</button></div>
+			<div class="ui-block-a"><button id="chat" class="ui-btn ui-icon-comment ui-btn-icon-top ui-alt-icon">Chat</button></div>
+			<div class="ui-block-b"><button onclick="productsClick();" class="ui-btn ui-icon-shop ui-btn-icon-top ui-alt-icon">Products</button></div>
+			<div class="ui-block-a"><button onclick="scannerClick();" class="ui-btn ui-icon-camera ui-btn-icon-top ui-alt-icon">Document Scanner</button></div>
+			<div class="ui-block-b"><button onclick="newsClick();" id="news" class="ui-btn ui-icon-info ui-btn-icon-top ui-alt-icon">News</button></div>
+			<div class="ui-block-a"><button onclick="harry();" id="calculator" class="ui-btn ui-icon-plus ui-btn-icon-top ui-alt-icon">Savings Calculator</button></div>
+			<div class="ui-block-b"><button onclick="contactClick();" id="branchInfo" class="ui-btn ui-icon-phone ui-btn-icon-top ui-alt-icon">Branch Info</button></div>
 		</div>		
 		
 	
@@ -133,7 +163,6 @@ function onDeviceReady(){
 
 </div>
 <!-- End of Home page -->
-
 
 <!-- Start of User Profile page -->
 <div data-role="page" id="User Profile">
@@ -170,11 +199,11 @@ function onDeviceReady(){
 	</div>
 <!-- /page -->
 
-<!-- Start of the Products page -->
-<div data-role="page" id="products">
+<!-- Start of the Calculator page -->
+<div data-role="page" id="calc">
 
     <div data-role="header" style="overflow:hidden">
-        <h2>EQ.FIN - User Profile</h2>
+        <h2>EQ.FIN - Savings Calculator</h2>
 	<div data-role="collapsibleset" data-theme="b" data-content-theme="b" data-collapsed-icon="bars" data-expanded-icon="minus" class="ui-btn-right">
 	<div data-role="collapsible">
 		<h2>Settings</h2>
@@ -188,41 +217,304 @@ function onDeviceReady(){
 <a href="#home" class="ui-btn ui-btn-left">Back</a>
 </div>
 
-    <div data-role="content">	
-        <select name="prodChoice" id="prodChoice">
-        	<option value="#">Product Type</option>
-        	<option value="#">Product 1</option>
-        	<option value="#">Product 2</option>
-        	<option value="#">Product 3</option>
-        </select>
-        
-     <div id="prodDesc" class="ui-body ui-body-a ui-corner-all">
-          <p></p>
-      </div>
+    <div data-role="content">
+    	<div data-role="tabs" id="tabs">
+    		<div data-role="navbar">
+    			<ul>
+    				<li><a href="#invest" data-ajax="false">Investment Calculator</a></li>
+    				<li><a href="#retire" data-ajax="false">Retirement Calculator</a></li>
+    			</ul>
+    		</div>
+    		<div id="invest" class="ui-body-d ui-content">
+    			<iframe id="datamain" src="http://www.libertyfinancials.co.za/lib/content/calculators/calculators.asp?iToolPage=investment" marginwidth="0" marginheight="0" hspace="0" vspace="0" scrolling="no" frameborder="0" height="550px" width="100%"></iframe>
+    		</div>
+    		<div id="retire" class="ui-body-d ui-content">
+    			<iframe id="datamain" src="http://www.libertyfinancials.co.za/lib/content/calculators/calculators.asp?iToolPage=retirement" marginwidth="0" marginheight="0" hspace="0" vspace="0" scrolling="no" frameborder="0" height="550px" width="100%"></iframe>
+    		</div>
+    	</div>
     </div>
 
 
 </div><!-- /page -->
 
-<!-- Track Info page -->
-<div data-role="page" id="track_info">
+<!-- Start of the Products page -->
+<div data-role="page" id="products">
 
-	<div data-role="header">
-		<h1>Viewing Single Workout</h1>
-		
-		<div data-role="navbar">
+    <div data-role="header" style="overflow:hidden">
+        <h2>EQ.FIN - Products</h2>
+	<div data-role="collapsibleset" data-theme="b" data-content-theme="b" data-collapsed-icon="bars" data-expanded-icon="minus" class="ui-btn-right">
+	<div data-role="collapsible">
+		<h2>Settings</h2>
+		<ul data-role="listview" data-inset="false">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+		</ul>
+	</div>
+	</div>
+<a href="#home" class="ui-btn ui-btn-left">Back</a>
+</div>
+
+    <div data-role="content">
+    	<div data-role="collapsibleset" >	
+        <div data-role="collapsible">
+        	<h2>RISK PRODUCTS</h2>
+        	<p><strong>Life Insurance</strong></br>
+        		Death is unpredictable and with all your responsibilities,
+        		 it is a necessity to have life insurance. Liberty's insurance protects your loved ones from financial strain when you die and has the following benefits:
+        		<ul>
+        			<li>Premiums based on your personal details</li>
+        			<li>You can increase or decrease your cover to suit your changing circumstances</li>
+        		</ul>
+        	</p>
+        	
+        	<p><strong>Disability Cover</strong></br>
+        		Liberty's disability cover covers you if anything were to happen to you that would leave you
+				physically disabled or unable to work as you used to in your area of expertise and/or
+				qualification. With Liberty's Disability Cover you get: </br>
+				<ul>
+					<li>A lump sum cash payout if you become permanently disabled and are unable to work</li>
+					<li>To protect your family and dependants from unexpected financial crisis</li>
+					<li>To support your children through school even after losing your salary due to becoming disabled</li>
+				</ul>
+			</p>
+			
+			<p><strong>Income Protection</strong></br>
+			If you were to be retrenched, fall ill or have an accident that leaves you unable to work temporarily, 
+			Liberty's income protection is your safety cushion. Liberty's income protection will pay you your salary for up to 
+			6 months after such instances. However, if you become ill or disabled, you will receive income payouts until the age of 65.
+			</p>
+			
+			<p><strong>Dread Disease</strong></br>
+			Liberty's dread disease cover pays out a lump sum if you are diagnosed with one of the 31 specified conditions. 
+			However, Liberty's cover can be tailor-made to your needs determined by the severity and level of the critical illness based 
+			on the benefit categories and payment criteria.</br>
+        	</p>
+			
+			<p><strong>Funeral Benefits</strong></br>
+			Liberty's funeral benefits cover you and your family when the death of a loved one occurs.</br>
+			The benefits of our funeral plan are:
 			<ul>
-				<li><a href="#home" data-transition="none" data-icon="home">Home</a></li>
-				<li><a href="#startTracking" data-transition="none" data-icon="plus">Track Workout</a></li>
-				<li><a href="#history" data-transition="none" data-icon="star">History</a></li>
-			</ul>
-		</div>
-	</div>
+				<li>Minimum administration</li>
+				<li>Claims attended to within 24 hours</li>
+				<li>Complete peace of mind to members</li>
+			</ul>        
+        	</p>
+        </div>
+      	<div data-role="collapsible">
+      		<h2>RETIREMENT PLANNING</h2>
+      		<p><strong>Retirement Annuities</strong></br>
+      			Retirement annuities are the ideal way to save for your retirement. 
+      			You would make chosen monthly contributions until you reach retirement age, which can be from the age of 55.
+      		</p>
+      		<p><strong>Living Annuities</strong></br>
+      			A life annuity is a policy that pays a guaranteed income until the day of your death. 
+      			Life annuities are particularly suitable if you have no other material source of income or capital. 
+      			Liberty's life annuity will suit most retirees but there are circumstances where a living annuity may be more appropriate. 
+      			To find these out, please contact your financial advisor.
+      		</p>
+      		<p><strong>Tax Planning for Retirees</strong></br>
+      			Retirees often receive income from a variety of sources, including distributions from pensions, annuities, RAs and other retirement plans. 
+      			EQ.FIN provides your tax planning when you retire.
+      		</p>
+      	</div>
+      	<div data-role="collapsible">
+      		<h2>INVESTMENT MANAGEMENT</h2>
+      		<p>EQ.FIN can provide both individuals and corporates with access to a premier range of portfolio management services and products.</p>
+      		<p><strong>Unit Trusts</strong></br>
+      			You should consider putting part of your portfolio into unit trusts if you do not have the expertise, time or money to invest in the stock market but still want exposure to shares.
+      		</p>
+      	</div>
+      	<div data-role="collapsible">
+      		<h2>LISP (Linked Investment Service Provider)</h2>
+      		<p>As the client, you are enabled to invest in a wide range of collective investment schemes, such as unit trust funds, via one source. A LISP also offers access to traditional life insurance products such as endowments, retirement annuities, preservation funds and living annuities to cater for the full range of your investment needs.</p>
+      	</div>
+		<div data-role="collapsible">
+			<h2>GROUP BENEFITS (corporate)</h2>
+			<p>Through a specialised corporate consultancy service we can provide information, advice and services for all your company's employee benefit solutions can be provided.</p>
+		</div>      
+      	<div data-role="collapsible">
+      		<h2>MINING REHABILITATION</h2>
+      		<p>Providing the financial instruments to successful environmental rehabilitation through innovative products</p>
+      	</div>
+      	</div>
+    </div>
 
-	<div data-role="content">	
-		<p id="track_info_info"></p>		
-		<div id="map_canvas" style="position:absolute;left:0;width:100%;height:500px;"></div>
+
+</div><!-- /page -->
+
+<!-- Start of the News page -->
+<div data-role="page" id="news">
+
+    <div data-role="header" style="overflow:hidden">
+        <h2>EQ.FIN - News</h2>
+	<div data-role="collapsibleset" data-theme="b" data-content-theme="b" data-collapsed-icon="bars" data-expanded-icon="minus" class="ui-btn-right">
+	<div data-role="collapsible">
+		<h2>Settings</h2>
+		<ul data-role="listview" data-inset="false">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+		</ul>
 	</div>
+	</div>
+<a href="#home" class="ui-btn ui-btn-left">Back</a>
+</div>
+
+    <div data-role="content">
+    </div>
+</div><!-- /page -->
+
+<!-- Start of the Document Scanner page -->
+<div data-role="page" id="scanner">
+
+    <div data-role="header" style="overflow:hidden">
+        <h2>EQ.FIN - Products</h2>
+	<div data-role="collapsibleset" data-theme="b" data-content-theme="b" data-collapsed-icon="bars" data-expanded-icon="minus" class="ui-btn-right">
+	<div data-role="collapsible">
+		<h2>Settings</h2>
+		<ul data-role="listview" data-inset="false">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+		</ul>
+	</div>
+	</div>
+<a href="#home" class="ui-btn ui-btn-left">Back</a>
+</div>
+
+    <div data-role="content">
+    	<h2>EQ.FIN - Document Scanner</h2><br/>
+		<p>Choose to either capture a document through the device camera or select a document from the device storage.</p>
+		<button onclick="capturePhotoWithData();" data-role="button">Capture</button><br>
+		<button onclick="capturePhotoEdit();" data-role="button">Capture for edit</button><br>
+		<button onclick="getPhoto()"; data-role="button">Get photo from file</button><br>
+		<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+		<img style="display:none;" id="largeImage" src="" />
+</div>
+</div><!-- /page -->
+
+<!-- Start of the Branch Info page -->
+<div data-role="page" id="contact">
+
+    <div data-role="header" style="overflow:hidden">
+        <h2>EQ.FIN - Branch Info</h2>
+	<div data-role="collapsibleset" data-theme="b" data-content-theme="b" data-collapsed-icon="bars" data-expanded-icon="minus" class="ui-btn-right">
+	<div data-role="collapsible">
+		<h2>Settings</h2>
+		<ul data-role="listview" data-inset="false">
+			<li>Item 1</li>
+			<li>Item 2</li>
+			<li>Item 3</li>
+		</ul>
+	</div>
+	</div>
+<a href="#home" class="ui-btn ui-btn-left">Back</a>
+</div>
+
+    <div data-role="content">
+    	<h3>Please choose a branch to view the contact details:</h3>
+    	<div data-role="collapsibleset" >	
+        <div data-role="collapsible">
+        	<h2>ST. ANDREWS</h2>
+        	<p><strong>Head Office</strong></br>
+        	   <strong>Grant Pacak</strong></br>
+        	   <strong>t: 011 454 4313</strong></br>
+        	   <a href="grant.pacak@liblink.co.za">grant.pacak@liblink.co.za</a>
+        	</p>
+        </div>
+        
+      	<div data-role="collapsible">
+      		<h2>SANDTON</h2>
+      		<p><strong>Sunell Pretorius</strong></br>
+        	   <strong>Human Capital Business Partner</strong></br>
+        	   <strong>t: 011 030 3500</strong></br>
+        	   <a href="sunell.pretorius@liblink.co.za">sunell.pretorius@liblink.co.za</a>
+        	</p>
+      	</div>
+      	<div data-role="collapsible">
+      		<h2>JHB NORTH</h2>
+      		<p><strong>Allen Chetty</strong></br>
+        	   <strong>EQ.FIN Academy</strong></br>
+        	   <strong>t: 011 030 3500</strong></br>
+        	   <strong>t: 011 234 2775</strong></br>
+        	   <a href="allen.chetty@liblink.co.za">allen.chetty@liblink.co.za</a>
+        	</p>
+      	</div>
+      	<div data-role="collapsible">
+      		<h2>EQ-FIN ACADEMY</h2>
+      		<p><strong>Brad van Heusden</strong></br>
+        	   <strong>t: 011 030 3500</strong></br>
+        	   <strong>t: 011 234 2775</strong></br>
+        	   <a href="bradley.vanheusden@liblink.co.za">bradley.vanheusden@liblink.co.za</a>
+      		</p>
+      	</div>
+		<div data-role="collapsible">
+			<h2>PRETORIA</h2>
+			<p><strong>Eddie Humphries</strong></br>
+        	   <strong>t: 012 347 4471</strong></br>
+        	   <strong>t: 012 740 4400</strong></br>
+        	   <a href="eddie.humphries@liblink.co.za">eddie.humphries@liblink.co.za</a>
+      		</p>
+		</div>      
+      	<div data-role="collapsible">
+      		<h2>ELDORAIGNE</h2>
+      		<p><strong>Juan Volschenk</br>
+        	<strong>t: 012 111 0188</strong></br>
+        	<a href="juan.volschenk@liblink.co.za">juan.volschenk@liblink.co.za</a>
+        	</p>
+      	</div>
+      	<div data-role="collapsible">
+			<h2>LA LUCIA RIDGE</h2>
+			<p><strong>La Lucia Ridge</strong></br>
+        	   <strong>Tessa Govender</strong></br>
+        	   <strong>t: 031 563 4978</strong></br>
+        	   <a href="tessa.govender@liblink.co.za">tessa.govender@liblink.co.za</a>
+      		</p>
+		</div>
+		<div data-role="collapsible">
+			<h2>VRYHEID</h2>
+			<p><strong>Tessa Govender</strong></br>
+        	   <strong>t: 031 563 4978</strong></br>
+        	   <a href="tessa.govender@liblink.co.za">tessa.govender@liblink.co.za</a>
+      		</p>
+		</div>
+		<div data-role="collapsible">
+			<h2>EQ-FIN CENTURION</h2>
+			<p><strong>Neil La Grange/ Aubrette Bear</strong></br>
+        	   <strong>t: 012 660 0068</strong></br>
+        	   <a href="neil.aldofalls@liblink.co.za">neil.aldofalls@liblink.co.za</a></br>
+        	   <a href="aubrette.bear@liblink.co.za">aubrette.bear@liblink.co.za</a>
+      		</p>
+		</div> 
+		<div data-role="collapsible">
+			<h2>EQ-FIN MIDVAAL</h2>
+			<p><strong>Jan Britz/ Sorina Button</strong></br>
+        	   <strong>t: 011 445 7029</strong></br>
+        	   <strong>t: 081 700 7895</strong></br>
+        	   <strong>t: 081 700 1397</strong></br>
+        	   <strong>t: 081 700 5343</strong></br>
+        	   <strong>t: 081 205 4860</strong></br>
+        	   <a href="jan.britz@liblink.co.za">jan.britz@liblink.co.za</a></br>
+        	   <a href="sorina.button@liblink.co.za">sorina.button@liblink.co.za</a>
+      		</p>
+		</div>
+		<div data-role="collapsible">
+			<h2>EQ-FIN INSPIRE</h2>
+			<p><strong>Frikkie Van Den Berg</strong></br>
+        	   <strong>t: 011 030 3500</strong></br>
+        	   <a href="frederick.vandenberg@liblink.co.za">frederick.vandenberg@liblink.co.za</a></br>
+      		</p>
+		</div> 
+      	<div data-role="collapsible">
+			<h2>EQ-FIN NORTH</h2>
+			<p><strong>Kevin McEvoy</strong></br>
+        	   <strong>t: 011 030 3500</strong></br>
+        	   <a href="kevin.mcevoy@liblink.co.za">kevin.mcevoy@liblink.co.za"</a></br>
+      		</p>
+		</div> 
+      	</div>
+    </div>
 
 
 </div><!-- /page -->
@@ -231,15 +523,9 @@ function onDeviceReady(){
 <div data-role="page" id="docScanner">
 	
 	<div data-role="content" title="Document Scanner">
-		<h2>Document Scanner</h2><br/>
-		<p>Choose to either capture a document through the device camera or select a document from </p>
-		
-		<button onclick="capturePhotoWithData();" data-role="button">Capture</button><br>
-		<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-		<img style="display:none;" id="largeImage" src="" /> 
+		 
 	</div>
 </div>
-
 
 </body>
 </html>
